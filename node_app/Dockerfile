@@ -3,10 +3,13 @@ FROM node:alpine
 
 # copy everything in current build context into container
 WORKDIR /usr/app
-COPY ./ ./
+COPY ./package.json ./
 
 # install dependencies
 RUN npm install
+
+# changing stuff other than package.json will not trigger re-install
+COPY ./ ./
 
 # default command: npm start
 CMD ["npm", "start"]
