@@ -2,6 +2,7 @@
 FROM node:alpine
 
 # copy everything in current build context into container
+WORKDIR /usr/app
 COPY ./ ./
 
 # install dependencies

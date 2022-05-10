@@ -1,6 +1,8 @@
 ### Basic Command
 * Check running container: `docker ps`
 * Stop a running container: `docker stop $CONTAINERID`
+* Start a shell in container: `docker run -it $IMAGE_ID sh`
+* Start a second process in a running container: `docker exec -it $CONTAINER_ID sh`
 
 ##### Tagging the image:
 * Format: `$REPO:$TAG`
@@ -33,6 +35,15 @@ COPY ./ ./
 ```bash
 # mapping local machine's 3000 to port 8080 in container
 docker run -p 3000:8080 $IMAGE_ID
+```
+
+#### Working Directory
+In practice, do not copy everything `COPY ./ ./`. Have a dedicated working directory for the project.
+* Specify project dir before copy
+* Directory will be created if not exists
+```bash
+WORKDIR /usr/app
+COPY ./ ./
 ```
 
 #### Manual Build
