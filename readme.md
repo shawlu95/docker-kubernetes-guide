@@ -4,6 +4,35 @@
 * Start a shell in container: `docker run -it $IMAGE_ID sh`
 * Start a second process in a running container: `docker exec -it $CONTAINER_ID sh`
 
+```bash
+docker ps
+docker ps --all
+
+# "run" is equivalent to create and start
+docker run
+docker create
+docker start <container id>
+
+# free disk space
+
+docker system prune
+docker logs <container id>
+
+# graceful shutdown
+docker stop <container id>
+
+# instant kill
+docker kill <container id>
+
+# execute command in container
+# i: attach standard input to the process
+# t: format nicely
+docker exec -it <container id> <command>
+
+# another way to run container, and attach shell
+docker run -it <container id> sh
+```
+
 ##### Tagging the image:
 * Format: `$REPO:$TAG`
 * "alphine" means simplest version, absolute minimum
