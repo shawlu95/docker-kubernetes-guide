@@ -9,7 +9,10 @@ COPY ./package.json ./
 RUN npm install
 
 # changing stuff other than package.json will not trigger re-install
+# can also do COPY . .
 COPY ./ ./
+
+EXPOSE 8080
 
 # default command: npm start
 CMD ["npm", "start"]
