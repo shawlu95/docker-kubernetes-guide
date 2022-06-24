@@ -9,10 +9,14 @@ WORKDIR /app
 # Dockerfile is ignored
 # COPY . /app 
 
-# because already set WORKDIR, don't need absolute path
-COPY . .
+# layer-optimization: do the heavy lifting install first
+# if app-code changes, no need to redo npm install
+COPY ./package.json ./
 
 RUN npm install
+
+# because already set WORKDIR, don't need absolute path
+COPY . .
 
 # don't do this, which executes when image is built
 # RUN node server.js
