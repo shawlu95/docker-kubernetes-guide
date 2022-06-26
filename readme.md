@@ -10,6 +10,8 @@ The projects are ordered by the progression of the course, from easy to advanced
 4. [python-app](./python-app/)
 5. [assignment-1](./assignment-1/)
 6. [data-volumes](./data-volumes/)
+7. [networks](./networks/)
+8. [multi-container-app](./multi-container-app/)
 
 ### References
 
