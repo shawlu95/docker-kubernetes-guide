@@ -22,10 +22,28 @@ docker run -d -p 3000:80 --rm --name feedback-app \
 
 # interesting use case: exclude node_modules from bind volume
 # instandly pick up code change without rebuilding image
-docker run -d -p 3000:80 --rm --name feedback-app \
-  -v "/Users/shaw.lu/Documents/proj/docker-basics/data-volumes:/app" \
-  -v /app/node_modules feedback-node:volume
+
+# a complex use case
+# feedback:/app/feedback: a named volume, writable by container, but do not write user data into host volume
+# /app/temp: anonymous, no need to persist
+# /app/node_modules: anonymous, do not override node_modules
+# /app:ro: ro means read-only, only host can change
+docker run -d -p 3000:80 --rm --name feedback-app -v feedback:/app/feedback -v /app/temp -v /app/node_modules -v "/Users/shaw.lu/Documents/proj/docker-basics/data-volumes:/app:ro" feedback-node:volume
 
 # see node server should restart after changes
 docker logs feedback-app
+
+# can create volume manually in advance
+docker volume create new-volume
+
+# theen pass the named volume when starting up container
+# docker run -d -p 3000:80 --rm --name feedback-app -v new-volume:/app/feedback ...
+
+# can remove if not currently in use
+docker volume rm new-volume
+
+# remove all local volumes not used by at least one container.
+docker volume prune
+
+docker volume inspect feedback
 ```
