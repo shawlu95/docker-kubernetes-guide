@@ -2,7 +2,7 @@
 
 docker build -t feedback-node:volume .
 
-docker run -d -p 3000:80 --rm --name feedback-app feedback-node:volume
+docker run -p 3000:80 --rm --name feedback-app feedback-node:volume
 
 docker rmi feedback-node:volume
 
@@ -12,7 +12,7 @@ docker stop feedback-app
 
 docker volume ls
 
-# restart container data should still exist
+# named volume, restart container data should still exist
 docker run -d -p 3000:80 --rm --name feedback-app -v feedback:/app/feedback feedback-node:volume
 
 # must give access to docker (by default, user's folder is shared)
@@ -26,5 +26,6 @@ docker run -d -p 3000:80 --rm --name feedback-app \
   -v "/Users/shaw.lu/Documents/proj/docker-basics/data-volumes:/app" \
   -v /app/node_modules feedback-node:volume
 
+# see node server should restart after changes
 docker logs feedback-app
 ```
