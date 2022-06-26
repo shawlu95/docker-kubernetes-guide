@@ -62,3 +62,14 @@ docker run -d -p 3000:8000 --env PORT=8000 --rm --name feedback-app -v feedback:
 # use .env file
 docker run -d -p 3000:8000 --env-file ./.env --rm --name feedback-app -v feedback:/app/feedback -v /app/temp -v /app/node_modules -v "/Users/shaw.lu/Documents/proj/docker-basics/data-volumes:/app:ro" feedback-node:env
 ```
+
+Build argument
+
+- lock certain values when building images
+- declare build arg right before use in Dockerfile because it creates a new layer
+
+```
+docker build -t feedback-node:dev --build-arg DEFAULT_PORT=8000 .
+docker history feedback-node:dev
+docker rmi feedback-node:dev
+```
