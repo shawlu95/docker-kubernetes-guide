@@ -47,3 +47,18 @@ docker volume prune
 
 docker volume inspect feedback
 ```
+
+Environment variable
+
+```bash
+docker build -t feedback-node:env .
+
+docker run -d -p 3000:80 --rm --name feedback-app -v feedback:/app/feedback -v /app/temp -v /app/node_modules -v "/Users/shaw.lu/Documents/proj/docker-basics/data-volumes:/app:ro" feedback-node:env
+
+# override port --env PORT=8000, or -e
+# can have multiple -e flags
+docker run -d -p 3000:8000 --env PORT=8000 --rm --name feedback-app -v feedback:/app/feedback -v /app/temp -v /app/node_modules -v "/Users/shaw.lu/Documents/proj/docker-basics/data-volumes:/app:ro" feedback-node:env
+
+# use .env file
+docker run -d -p 3000:8000 --env-file ./.env --rm --name feedback-app -v feedback:/app/feedback -v /app/temp -v /app/node_modules -v "/Users/shaw.lu/Documents/proj/docker-basics/data-volumes:/app:ro" feedback-node:env
+```

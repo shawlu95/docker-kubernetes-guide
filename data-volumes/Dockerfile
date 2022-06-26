@@ -8,7 +8,10 @@ RUN npm install
 
 COPY . .
 
-EXPOSE 80
+# declare env variable, accessed in node process.env.PORT
+ENV PORT 80
+
+EXPOSE $PORT
 
 # let docker controls where folder lives on host machine
 # VOLUME [ "/app/feedback" ]
