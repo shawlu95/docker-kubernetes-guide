@@ -17,5 +17,10 @@ cd ./multi-container-app
 docker run --name mongodb --rm -d -p 27017:27017 mongo
 
 cd ./backend
-docker run --name goals-backend --rm goals-node
+docker build -t goals-backend .
+docker run --name goals-backend --rm -d -p 80:80 goals-node
+
+# the react app must be run in interactive mode, or it will immediately stop
+docker build -t goals-react .
+docker run --name golas-frontend --rm -d -p 3000:3000 -it goals-react
 ```
