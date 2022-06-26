@@ -1,13 +1,3 @@
-### Project Progression
-
-The projects are ordered by the progression of the course, from easy to advanced.
-
-1. [node_app](./node_app/)
-2. [first_demo](./first-demo/)
-3. [node_html_app](./node_html_app/)
-4. [python-app](./python-app/)
-5. [assignment-1](./assignment-1)
-
 ### Basic Command
 
 - Start a shell in container: `docker run -it $image_id sh`
