@@ -55,3 +55,11 @@ Bring up artisan (would fail if no database conenction)
 ```bash
 docker-compose run --rm artisan migrate
 ```
+
+---
+
+## Bind Mount
+
+- Do not use bind mount when deploy, this is just for development (a server pod can lives on a different machine than php pod)
+- application containers cannot have bind mount. Instead, copy `src` when building image (although update won't be instantly reflected)
+- utility containers can have bind mount because they only need to run locally
