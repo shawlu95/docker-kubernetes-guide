@@ -12,6 +12,7 @@ The projects are ordered by the progression of the course, from easy to advanced
 6. [data-volumes](./data-volumes/)
 7. [networks](./networks/)
 8. [multi-container-app](./multi-container-app/)
+9. [utility-containers](./utility-containers)
 
 ### References
 

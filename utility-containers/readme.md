@@ -62,3 +62,16 @@ docker run -it --rm \
   -v /Users/shaw.lu/Documents/proj/docker-kubernetes-guide/utility-containers/app:/app \
   node-util install express --save
 ```
+
+---
+
+### Using Docker Compose
+
+- Cannot directly bring up because the `ENTRYPOINT` is `npm`
+- Unlike `docker-compose up` which remove containers after shutdown, `docker-compose run` does not remove (need `--rm` flag)
+
+```bash
+# start a single service (with applicable command)
+
+docker-compose run --rm npm init
+```
