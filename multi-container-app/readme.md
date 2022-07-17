@@ -108,3 +108,35 @@ docker run \
   -it \
   goals-react
 ```
+
+---
+
+## Docker Compose
+
+Write project setup in [docker-compose.yaml](docker-compose.yaml). See official [doc](https://docs.docker.com/compose/compose-file/).
+
+- by default, containers are detatched
+- by default services will be removed when shutdown
+- by default, all containers started up by the same compose file are placed in the same network
+  - can add `networks` section too to specify name
+  - can use container name specified in services to reference container in code
+- need to declare named volume in `volumes` (top-level section)
+  - don't need to list anonymous volume and bind mount
+- can use reletive path for bind mount
+- use `depends_on` section to specify order of starting up containers
+
+```bash
+docker-compose --version
+docker-compose up
+docker-compose up -d # detatched mode
+docker-compose up --build # rebuild no matter what
+
+# build images without starting containers
+docker-compose build
+
+# delete all containers and network
+docker-compose down
+
+# delete volumes too
+docker-compose down -v
+```

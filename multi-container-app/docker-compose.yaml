@@ -1,0 +1,64 @@
+version: '3.8'
+services:
+  mongodb:
+    image: 'mongo'
+    volumes:
+      - 'db:/data/db'
+
+    # environment:
+    # key-val syntax
+    #   MONGO_INITDB_ROOT_USERNAME: shaw
+    # array syntax
+    #   - MONGO_INITDB_ROOT_PASSWORD=secret
+
+    env_file:
+      # relative path to env file
+      - ./env/mongo.env
+
+    # not needed, all containers will be placed in same network
+    # networks:
+    #   - goals-net
+
+  backend:
+    # shorter form
+    # build: ./backend
+
+    # longer form
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+
+    # instead of building from scratch, can reference name
+    # image: shawlu95/goals-backend
+
+    # can use relative path for bind mount
+    volumes:
+      - logs:/app/logs
+      - ./backend:/app
+      - /app/node_modules
+    ports:
+      - '8080:8080'
+    env_file:
+      - ./env/backend.env
+    depends_on:
+      - mongodb
+
+  frontend:
+    # enforce name, instead of using default filepath-name-seq name
+    container_name: frontend
+    build: ./frontend
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./frontend/src:/app/src
+    depends_on:
+      - backend
+    # enable interactive mode
+    stdin_open: true
+    tty: true
+
+# named volumes must be listed (anony & bind mount don't need)
+# different containers can share the same volume
+volumes:
+  db:
+  logs:
