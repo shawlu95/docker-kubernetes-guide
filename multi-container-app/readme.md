@@ -35,3 +35,13 @@ docker build -t goals-react .
 # don't need network, but still need to expose port
 docker run --name goals-frontend --rm -d -p 3000:3000 -it goals-react
 ```
+
+### How to Persist Data across Container Removal
+
+1. using named volume: `-v data:/data/db`
+2. using bind mount: `-v $LOCAL_PATH:/data/db`
+
+```bash
+# using named volume
+docker run --name mongodb --rm -d --network goals-network -v data:/data/db mongo
+```
