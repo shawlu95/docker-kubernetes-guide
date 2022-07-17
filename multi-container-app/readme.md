@@ -96,3 +96,15 @@ docker run \
   -p 8080:8080 \
   goals-backend
 ```
+
+### Front-end Live Update
+
+```bash
+docker run \
+  -v /Users/shaw.lu/Documents/proj/docker-basics/multi-container-app/frontend/src:/app/src \
+  --name goals-frontend \
+  --rm -d \
+  -p 3000:3000 \
+  -it \
+  goals-react
+```
