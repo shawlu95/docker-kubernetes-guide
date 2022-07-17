@@ -40,3 +40,12 @@ Bring up containers (except composer). Should be able to visit port [8000](http:
 ```bash
 docker-compose up -d server php mysql
 ```
+
+Add `depends_on` to the server container. Then can simplify start up command.
+
+```bash
+docker-compose up -d server
+
+# force rebuild image if something changed
+docker-compose up -d --build server
+```

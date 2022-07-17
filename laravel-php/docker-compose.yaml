@@ -9,6 +9,9 @@ services:
       # pass a read-only config file
       - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
       - ./src:/var/www/html
+    depends_on:
+      - php
+      - mysql
   php:
     build:
       context: ./dockerfiles
