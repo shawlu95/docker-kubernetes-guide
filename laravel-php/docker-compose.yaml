@@ -40,4 +40,10 @@ services:
       - ./src:/var/www/html
     # overwrite/add entry point without creating new Dockerfile
     entrypoint: ['php', '/var/www/html/artisan']
-  # npm:
+  npm:
+    image: node:14
+    # overwrite working dir without creating new Dockerfile
+    working_dir: /var/www/html
+    entrypoint: ['npm']
+    volumes:
+      - ./src:/var/www/html
