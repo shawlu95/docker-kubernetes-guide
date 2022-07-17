@@ -49,3 +49,9 @@ docker-compose up -d server
 # force rebuild image if something changed
 docker-compose up -d --build server
 ```
+
+Bring up artisan (would fail if no database conenction)
+
+```bash
+docker-compose run --rm artisan migrate
+```

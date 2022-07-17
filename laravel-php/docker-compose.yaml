@@ -32,5 +32,12 @@ services:
       dockerfile: composer.dockerfile
     volumes:
       - ./src:/var/www/html
-  # artisan:
+  artisan:
+    build:
+      context: ./dockerfiles
+      dockerfile: php.dockerfile
+    volumes:
+      - ./src:/var/www/html
+    # overwrite/add entry point without creating new Dockerfile
+    entrypoint: ['php', '/var/www/html/artisan']
   # npm:
