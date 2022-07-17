@@ -45,3 +45,20 @@ docker run --name goals-frontend --rm -d -p 3000:3000 -it goals-react
 # using named volume
 docker run --name mongodb --rm -d --network goals-network -v data:/data/db mongo
 ```
+
+### Set Mongodb Credential
+
+- Set db username and password when starting container
+- nodeJS must use username and password to connect to mongo
+- when setting initial user, must create a brand new named volume, or connection will fail
+  - must completely remove volume before setting user
+
+```bash
+docker run \
+  --name mongodb \
+  --rm -d --network goals-network \
+  -v db:/data/db \
+  -e MONGO_INITDB_ROOT_USERNAME=shaw \
+  -e MONGO_INITDB_ROOT_PASSWORD=secret \
+  mongo
+```
