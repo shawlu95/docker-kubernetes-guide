@@ -1,9 +1,4 @@
-node_modules
-.DS_Store
-
-# laravel ignores
-/node_m
-odules
+/node_modules
 /public/build
 /public/hot
 /public/storage
