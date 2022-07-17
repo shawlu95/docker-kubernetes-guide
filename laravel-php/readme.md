@@ -16,6 +16,27 @@ Utility containers:
 
 ---
 
+## Getting Started
+
+Generate projects
+
 ```bash
-docker compose run --rm composer create-project --prefer-dist laravel/laravel .
+docker-compose run --rm composer create-project --prefer-dist laravel/laravel .
+```
+
+Edit [.env](./src) of generated project:
+
+```
+DB_CONNECTION=mysql
+DB_HOST=mysql
+DB_PORT=3306
+DB_DATABASE=homestead
+DB_USERNAME=homestead
+DB_PASSWORD=secret
+```
+
+Bring up containers (except composer). Should be able to visit port [8000](http://localhost:8000/)
+
+```bash
+docker-compose up -d server php mysql
 ```
