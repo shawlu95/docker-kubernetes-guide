@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  server:
+    image: 'nginx:stable-alpine'
+    ports:
+      - '8000:80'
+    volumes:
+      # pass a read-only config file
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+  php:
+    build:
+      context: ./dockerfiles
+      dockerfile: php.dockerfile
+    volumes:
+      # delegated: slightly improve performance by writing
+      # to host machine in infrequent batches
+      - ./src:/var/www/html:delegated
+  mysql:
+    image: mysql:5.7
+    env_file:
+      # 'homestead' is required by laravel
+      - ./env/mysql.env
+  composer:
+    build:
+      context: ./dockerfiles
+      dockerfile: composer.dockerfile
+    volumes:
+      - ./src:/var/www/html
+  # artisan:
+  # npm:
