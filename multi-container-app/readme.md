@@ -62,3 +62,22 @@ docker run \
   -e MONGO_INITDB_ROOT_PASSWORD=secret \
   mongo
 ```
+
+### Persist Node App Log
+
+- using named volume `-v logs:/app/logs`
+- using bind mount to map host machine code to container
+- logs folder is more specific (`/app/logs`) so it won't be overwritten by bind mount
+- use anonymous volume to avoid overwriting node_module
+
+```bash
+docker run \
+  --name goals-backend \
+  -v /Users/shaw.lu/Documents/proj/docker-basics/multi-container-app/backend:/app \
+  -v logs:/app/logs \
+  -v /app/node_modules \
+  --rm -d \
+  --network goals-network \
+  -p 8080:8080 \
+  goals-backend
+```
