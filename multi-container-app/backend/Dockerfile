@@ -10,4 +10,8 @@ COPY . .
 
 EXPOSE 80
 
+# default value, overwride in bash cmd -e
+ENV MONGODB_USERNAME=root
+ENV MONGODB_PASSWORD=secret
+
 CMD ["npm", "run", "dev"]

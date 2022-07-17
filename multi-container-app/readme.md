@@ -26,7 +26,22 @@ docker build -t goals-backend .
 
 # node needs network to reach mongo
 # also needs to expose port to browser app
-docker run --name goals-backend --rm -d --network goals-network -p 8080:8080 goals-backend
+docker run \
+  --name goals-backend \
+  --rm -d \
+  --network goals-network \
+  -p 8080:8080 \
+  goals-backend
+
+# define my own env var, use in app.js
+docker run \
+  --name goals-backend \
+  --rm -d \
+  --network goals-network \
+  -e MONGODB_USERNAME=shaw \
+  -e MONGODB_PASSWORD=secret \
+  -p 8080:8080 \
+  goals-backend
 
 # the react app must be run in interactive mode, or it will immediately stop
 cd ./frontend
