@@ -43,3 +43,29 @@ sudo service docker start
 sudo docker pull shawlu95/node-depl-example
 sudo docker run -d --rm -p 80:8080 shawlu95/node-depl-example
 ```
+
+### Deploy Update
+
+Rebuild image and push to docker hub
+
+```bash
+docker build --platform=linux/amd64 -t node-depl-example .
+docker tag node-depl-example shawlu95/node-depl-example
+docker push shawlu95/node-depl-example
+```
+
+On EC2 instance, stop, pull, and run the container.
+
+```bash
+sudo docker stop $container_name
+sudo docker pull shawlu95/node-depl-example
+sudo docker run -d --rm -p 80:8080 shawlu95/node-depl-example
+```
+
+### Disadvantage of Manual Approach
+
+- fully own ec2 machine, responsible for config, monitoring, security, capacity/scaling, OS software, network, security/firewall
+  - could easily end up with an insecure instance that can be hacked
+- error-prone to ssh into the machine and issue cmd
+- alternative: **ECS: elastic container service**, a managed approach so can focus on building software app, not security
+  - Microsoft: Azure Kubernetes Service (AKS)
