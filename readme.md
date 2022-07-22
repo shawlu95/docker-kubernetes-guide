@@ -14,6 +14,7 @@ The projects are ordered by the progression of the course, from easy to advanced
 8. [multi-container-app](./multi-container-app/)
 9. [utility-containers](./utility-containers)
 10. [laravel-php](./laravel-php)
+11. [deployment](./deployment/)
 
 ### References
 
