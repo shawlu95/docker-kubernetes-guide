@@ -265,3 +265,17 @@ Revise goal task definition
 - update backend env variables
 - remove EFS and security group
 - force new deployment
+
+---
+
+## Build Container
+
+- React app needs to be build for production (optimize bundle)
+- Prod does not need to listen and update as code change
+- Create [Dockerfile.prod](./frontend/Dockerfile.prod)
+  - Do not expose port
+  - run `npm run build` to build the app
+- Multi-stage build
+  - one dockerfile, multiple stages
+  - stages can copy results from each other
+  - final image can be complete stages, or selected stages
