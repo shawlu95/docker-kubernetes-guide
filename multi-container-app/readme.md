@@ -193,3 +193,37 @@ docker push shawlu95/goals-node-depl
   - container exposes 80
   - load balancer listens on 80
   - should be able to access app via load balancer DNS name such as `goals-lb-1986174266.us-west-1.elb.amazonaws.com`
+
+How to pick up code changes
+
+- push latest change to Docker Hub
+- navigate to ECS cluster, click service, click update, select "Force new Deployment"
+- note: mongo db data are lost after task is shutdown & restarted
+
+How to persist Mongo DB data
+
+- create a new task revision
+- keep all default setting, but add a volume
+  - name anything e.g. `goals-data`
+  - pick `EFS`: elastic file system (offered by AWS)
+  - click EFS console to create a new file system
+    - name anything e.g. `goals-fs`
+    - select same vpc as before
+    - customize setting and create **new security group** e.g. `efs-sc`
+      - add in bound rule: allow **service**'s security group to communicate via NFS port 2049
+    - add `efs-sc` to each of the AZ, remove default security group
+  - select the newly created `efs-sc` in File System ID
+  - leave default setting and add volume
+- click open mongo container config (not back-end container!)
+  - select `goals-data` as "Mount Point"
+  - set bind path to `/data/db` (within container)
+- save revision, and redeploy
+  - click "Actions" -> "Update Service"
+  - check "Force new deployment"
+  - use "Platform Version" 1.4.0
+- rolling update fails because two isntances of mongodb tries to use the same data path on EFS!
+  - manually remove the old task so the new task can become active (good for now)
+- sanity check
+  - save a goal
+  - update service and "Force new deployment"
+  - read goals again, should see data
