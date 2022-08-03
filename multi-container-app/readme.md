@@ -33,16 +33,6 @@ docker run \
   -p 8080:8080 \
   goals-backend
 
-# define my own env var, use in app.js
-docker run \
-  --name goals-backend \
-  --rm -d \
-  --network goals-network \
-  -e MONGODB_USERNAME=shaw \
-  -e MONGODB_PASSWORD=secret \
-  -p 8080:8080 \
-  goals-backend
-
 # the react app must be run in interactive mode, or it will immediately stop
 cd ./frontend
 docker build -t goals-react .
@@ -76,6 +66,18 @@ docker run \
   -e MONGO_INITDB_ROOT_USERNAME=shaw \
   -e MONGO_INITDB_ROOT_PASSWORD=secret \
   mongo
+
+# define my own env var, use in app.js
+docker run \
+  --name goals-backend \
+  --rm -d \
+  --network goals-network \
+  -e MONGODB_USERNAME=shaw \
+  -e MONGODB_PASSWORD=secret \
+  -e MONGO_URL=mongodb \
+  -p 8080:8080 \
+  goals-backend
+
 ```
 
 ### Persist Node App Log
@@ -140,3 +142,48 @@ docker-compose down
 # delete volumes too
 docker-compose down -v
 ```
+
+### ECS Deployment
+
+#### Configure Backend
+
+- change port to listen on 80, rebuild:
+
+```bash
+cd backend
+docker build --platform=linux/amd64 -t shawlu95/goals-node-depl .
+docker push shawlu95/goals-node-depl
+```
+
+- refactor `MONGO_URL` env variable
+- create a network only cluster
+- create VPC network
+- create new task **definition** (not new task)
+  - with ecsTaskExecutionRole
+- expose port 8080
+- overwride start up command with `node,app.js`
+- set environment variable, `MONGODB_USERNAME`, `MONGODB_PASSWORD`, `MONGO_URL`
+  - container cannot be used as address in AWS, use **localhost** if adding multiple containers to the same task
+  - rename `MONGO_URL=localhost`
+
+#### Configure Mongo
+
+- image: `mongo`
+- port: 27027
+- set environment var `MONGO_INITDB_ROOT_USERNAME`, `MONGO_INITDB_ROOT_PASSWORD`
+
+#### Create Service
+
+- FARGATE
+- Choose task, rename
+- number of task: 1
+- choose vpc
+- select all available subnets
+- choose "Application Load Balancer" and create one
+  - internet facing
+  - port 80
+  - select same VPC and check availability zone
+  - create target group with type "ecs-target"
+- add container to load balancer
+  - container exposes 8080
+  - load balancer listens on 80

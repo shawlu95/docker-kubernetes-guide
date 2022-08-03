@@ -69,3 +69,5 @@ sudo docker run -d --rm -p 80:8080 shawlu95/node-depl-example
 - error-prone to ssh into the machine and issue cmd
 - alternative: **ECS: elastic container service**, a managed approach so can focus on building software app, not security
   - Microsoft: Azure Kubernetes Service (AKS)
+  - define container, task (which runs one or more container, like ec2 instance), service (load balance), cluster
+  - access the managed container by visiting
