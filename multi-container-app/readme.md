@@ -246,3 +246,22 @@ How to persist Mongo DB data
 # should see message connected to mongo db
 docker-compose up
 ```
+
+## ECS Migrate to Mongo Atlas
+
+Change to port 80. Rebuild image. Push image to Docker Hub
+
+```bash
+cd backend
+docker build --platform=linux/amd64 -t shawlu95/goals-node-depl .
+docker push shawlu95/goals-node-depl
+```
+
+Revise goal task definition
+
+- remove mongodb container
+- remove backend container dependency on mongo container
+- remove volume
+- update backend env variables
+- remove EFS and security group
+- force new deployment
