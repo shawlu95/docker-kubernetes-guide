@@ -12,3 +12,14 @@
 # mapping local machine's 3000 to port 8080 in container
 docker run -p 3000:8080 $image_id
 ```
+
+Pracrtice: push this to DockerHub and start a container using ECS
+
+```bash
+cd node_app
+docker build --platform=linux/amd64 -t shawlu95/node-app .
+docker push shawlu95/node-app
+
+# run locally for sanity check
+docker run --rm -d -p 3000:80 shawlu95/node-app
+```
