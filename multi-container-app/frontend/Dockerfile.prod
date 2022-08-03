@@ -1,5 +1,5 @@
 # need node to setup image although react doesn't need node
-FROM node:14-alpine
+FROM node:14-alpine as build
 
 WORKDIR /app
 
@@ -9,5 +9,16 @@ RUN npm install
 
 COPY . .
 
-CMD [ "npm", "run", "build" ]
+# multi-stage build, use RUN
+RUN npm run build
+# CMD [ "npm", "run", "build" ]
 
+# second stage, use another base image
+FROM nginx:stable-alpine
+
+# copy file from previous stage (given alias "build")
+COPY --from=build /app/build /usr/share/nginx/html
+
+EXPOSE 80
+
+CMD [ "nginx", "-g", "daemon off;" ]

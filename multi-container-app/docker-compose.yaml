@@ -43,19 +43,19 @@ services:
     # depends_on:
     #   - mongodb
 
-  # frontend:
-  #   # enforce name, instead of using default filepath-name-seq name
-  #   container_name: frontend
-  #   build: ./frontend
-  #   ports:
-  #     - '3000:3000'
-  #   volumes:
-  #     - ./frontend/src:/app/src
-  #   depends_on:
-  #     - backend
-  #   # enable interactive mode
-  #   stdin_open: true
-  #   tty: true
+  frontend:
+    # enforce name, instead of using default filepath-name-seq name
+    container_name: frontend
+    build: ./frontend
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./frontend/src:/app/src
+    depends_on:
+      - backend
+    # enable interactive mode
+    stdin_open: true
+    tty: true
 
 # named volumes must be listed (anony & bind mount don't need)
 # different containers can share the same volume

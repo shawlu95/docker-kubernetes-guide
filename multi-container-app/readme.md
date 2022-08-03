@@ -279,3 +279,43 @@ Revise goal task definition
   - one dockerfile, multiple stages
   - stages can copy results from each other
   - final image can be complete stages, or selected stages
+
+## Deploy React on ECS
+
+- Cannot use `localhost` because it runs on browser
+- Can remove domain, so API is routed to same server (browser default behavior)
+- if deploy on different server, needs the full domain
+- create a new revision of task definition, add `shawlu95/goals-react-depl` container
+  - depends on backend container 'SUCCESS' status
+  - listen on PORT 80 which **conflicts with backend**
+    - option 1: merge two containers
+    - option 2: use different port on backend
+    - option 3: create a new task definition
+      1. create new task which has its own URL
+      2. ingest URL into React app bundle (during build process)
+      3. create new load balancer with new target group `react-tg` with health check at `/`
+- create new servcie using task definition
+  - FarGate
+  - select task definition
+  - name service `goals-react-srv`
+  - select security group that exposes port 80
+  - select target group `react-tg`
+- should be able to access react app's load balancer, which connects to backend
+  - if backend fails, force new deployment
+  - local should still work `docker-compose up`, connect to dev database
+
+```bash
+cd frontend
+docker build \
+  --platform=linux/amd64 \
+  -f Dockerfile.prod \
+  -t shawlu95/goals-react-depl .
+
+# or without cd
+docker build \
+  --platform=linux/amd64 \
+  -f ./frontend/Dockerfile.prod \
+  -t shawlu95/goals-react-depl ./frontend
+
+docker push shawlu95/goals-react-depl
+```
