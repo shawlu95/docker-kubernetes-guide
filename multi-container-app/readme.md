@@ -143,6 +143,8 @@ docker-compose down
 docker-compose down -v
 ```
 
+---
+
 ### ECS Deployment
 
 #### Configure Backend
@@ -172,18 +174,22 @@ docker push shawlu95/goals-node-depl
 - port: 27027
 - set environment var `MONGO_INITDB_ROOT_USERNAME`, `MONGO_INITDB_ROOT_PASSWORD`
 
-#### Create Service
+#### Create Service (not run task)
 
 - FARGATE
 - Choose task, rename
 - number of task: 1
 - choose vpc
 - select all available subnets
-- choose "Application Load Balancer" and create one
+- choose "Application Load Balancer" and create one (**cost money, stop ASAP**)
   - internet facing
   - port 80
   - select same VPC and check availability zone
-  - create target group with type "ecs-target"
-- add container to load balancer
-  - container exposes 8080
+  - enable the 'goals' security group
+  - create **target group** with IP type. named "ecs-target"
+    - health check should be sent to `/goals`
+- Add backend container (not mongo) to load balancer
+  - select the target group (IP types)
+  - container exposes 80
   - load balancer listens on 80
+  - should be able to access app via load balancer DNS name such as `goals-lb-1986174266.us-west-1.elb.amazonaws.com`
