@@ -15,5 +15,6 @@ EXPOSE 8080
 ENV MONGODB_USERNAME=root
 ENV MONGODB_PASSWORD=secret
 ENV MONGO_URL=mongodb
+ENV MONGODB_NAME=goals-dev
 
 CMD ["npm", "run", "dev"]

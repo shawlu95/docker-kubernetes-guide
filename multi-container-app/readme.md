@@ -227,3 +227,22 @@ How to persist Mongo DB data
   - save a goal
   - update service and "Force new deployment"
   - read goals again, should see data
+
+## Migrate to Mongo Atlas
+
+- delegate to expert because you can't do everything (scale, migrate, recover, snapshot etc)
+- best practice is to use cloud DB for dev and prod, but different database. This course use Mongo Atlas
+  - add env var: `MONGODB_NAME`
+  - update var `MONGO_URL` to `nodejs.rr8cx.mongodb.net` (see Atlas)
+  - allow access from my IP (or everywhere)
+  - create user and note down password
+  - update var `MONGODB_USERNAME` and `MONGODB_PASSWORD`
+  - prod: `goals-prod`
+  - dev: `goals-dev`
+- delete mongo from [docker-compose.yaml](./docker-compose.yaml)
+- may need to create new DB user if haven't connected to DB for too long (Atlas error: 8080)
+
+```bash
+# should see message connected to mongo db
+docker-compose up
+```
