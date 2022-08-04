@@ -67,3 +67,26 @@ Env Variable
 - can pass in env files `--env-file ./.env`
 - **warning** do not write credential into Dockerfile, which can be looked up via `docker history $image_name`
   - write credentials into `.env` file and never commit it to version control
+
+---
+
+# Kubernetes
+
+- just like docker-compose, but works on cluster
+- pod is a logical group of >= 1 containers and required resources (e.g. volume)
+  - smallest unit that Kubernetes interacts with
+  - has a cluster-interal IP, containers can refer to each other as localhost
+  - pods are disposable, short-lived (by design decision)
+- deployment: manages pods to be created, stopped, replaced
+  - set a target state, e.g. two pods of specific containers
+  - can pause and rollback deployment to fix bug
+  - deployment can be scaled dynamically
+- service: expose pods to cluster or outside world
+  - internal IP changes when pod gets replaced (not reliable)
+  - groups pods together with a shared IP
+
+Deployment type:
+
+- ClusterIP: only reachable from inside cluster
+- NodePort: exposed to the outside by IP
+- LoadBalancer: generate unique address for this service and evenly distribute traffic
