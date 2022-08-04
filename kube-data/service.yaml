@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: story-srv
+spec:
+  selector:
+    app: story
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 3000
