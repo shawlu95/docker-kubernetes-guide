@@ -1,0 +1,3 @@
+- write and read a story in the [story](./story/)
+- to start locally, `docker-compose up -d --build`
+- send request from postman
