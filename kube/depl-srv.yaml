@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend
+spec:
+  # identify Pods object (node deployment) to be controlled by service
+  selector:
+    # cannot "matchLabel" because this API is older
+    app: second-app
+    # don't need all labels, just need to be specific enough
+    # tier: backend
+  ports: # expose list of ports
+    - protocol: 'TCP' # default is TCP
+      port: 80 # from outside
+      targetPort: 8080 # from container
+    # can expose more than one port
+    # - protocol: 'TCP'
+    #   port: 443
+    #   targetPort: 443
+  type: LoadBalancer # most common
+
+---
+apiVersion: apps/v1
+kind: Deployment # the kind of K8s objects to create e.g. Service, Job
+metadata:
+  name: second-app-depl
+spec: # spec for deployment
+  replicas: 3 # default is 1
+  selector:
+    matchLabels: # which pods to watch (all labels must be matched)
+      app: second-app
+      tier: backend
+  template:
+    # kind: Pod # always a pod, no need for verbiage
+    metadata:
+      labels: # can be arbitrary key-value pair, as many as needed
+        app: second-app
+        tier: backend
+        # foo: bar
+    spec: # spec for individual pod
+      containers: # can have multiple containers in same pod
+        - name: second-node
+          image: shawlu95/kube-first-app:v3
+        # - name: foo
+        #   image: bar
