@@ -2,12 +2,19 @@ apiVersion: apps/v1
 kind: Deployment # the kind of K8s objects to create e.g. Service, Job
 metadata:
   name: second-app-depl
+  labels:
+    group: test
 spec: # spec for deployment
   replicas: 3 # default is 1
   selector:
-    matchLabels: # which pods to watch (all labels must be matched)
-      app: second-app
-      tier: backend
+    # matchLabels: # which pods to watch (all labels must be matched)
+    #   app: second-app
+    #   tier: backend
+    matchExpressions:
+      # newer, more powerful
+      # 'second-app' would match the criteria
+      - { key: app, operator: In, values: [second-app, first-app] }
+      - { key: app, operator: NotIn, values: [bad-app] }
   template:
     # kind: Pod # always a pod, no need for verbiage
     metadata:
