@@ -118,7 +118,9 @@ kubectl delete deployment first-app
 
 # Declarative Approach
 
-- create **resource definition file**: [deployment.yaml](./deployment.yaml)
+- create **resource definition file**:
+  - [deployment.yaml](./deployment.yaml)
+  - [service.yaml](./service.yaml)
 - we don't want to manually run all the command (like we did with `docker run`...)
 - instead, we want something like docker-compose (declarative): `kubectl apply -f config.yaml`
   - the config file is used to define desired state (and change state)
@@ -127,6 +129,12 @@ kubectl delete deployment first-app
 ```bash
 kubectl apply -f ./deployment.yaml
 kubectl get deployment
+
+kubectl apply -f ./service.yaml
+kubectl get service
+
+# expose the service named "backend"
+minikube service backend
 ```
 
 ## Yaml Note
@@ -134,3 +142,4 @@ kubectl get deployment
 - find latest API version [here](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)
 - see available Deployment options [here](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/deployment-v1/)
 - selector can be `matchLabels` or `matchExpression`, tell deployment which pods to control
+- see Service config options [here](https://kubernetes.io/docs/reference/kubernetes-api/service-resources/service-v1/)
