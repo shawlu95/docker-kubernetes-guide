@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment # the kind of K8s objects to create e.g. Service, Job
+metadata:
+  name: second-app-depl
+spec: # spec for deployment
+  replicas: 3 # default is 1
+  selector:
+    matchLabels: # which pods to watch (all labels must be matched)
+      app: second-app
+      tier: backend
+  template:
+    # kind: Pod # always a pod, no need for verbiage
+    metadata:
+      labels: # can be arbitrary key-value pair, as many as needed
+        app: second-app
+        tier: backend
+        # foo: bar
+    spec: # spec for individual pod
+      containers: # can have multiple containers in same pod
+        - name: second-node
+          image: shawlu95/kube-first-app:v3
+        # - name: foo
+        #   image: bar
