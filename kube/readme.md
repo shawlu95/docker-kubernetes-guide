@@ -167,3 +167,9 @@ minikube service backend
 
 - see example config in [depl-srv.yaml](./depl-srv.yaml)
 - see documentation [here](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes)
+
+---
+
+## Reference
+
+- how to configure k8s objects [doc](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/)
