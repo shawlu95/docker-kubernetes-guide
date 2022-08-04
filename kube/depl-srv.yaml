@@ -41,5 +41,11 @@ spec: # spec for deployment
       containers: # can have multiple containers in same pod
         - name: second-node
           image: shawlu95/kube-first-app:v3
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            periodSeconds: 10 # in seconds
+            initialDelaySeconds: 15 # before first check
         # - name: foo
         #   image: bar

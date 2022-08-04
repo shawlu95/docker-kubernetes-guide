@@ -162,3 +162,8 @@ minikube service backend
 - can delete imperatively `kubectl delete deployment $name`
 - can delete declaratively `kubectl delete -f deployment.yaml -f service.yaml`
 - can delete by selector `kubectl delete deployment,service -l group=test`
+
+## Liveness Probe
+
+- see example config in [depl-srv.yaml](./depl-srv.yaml)
+- see documentation [here](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes)
