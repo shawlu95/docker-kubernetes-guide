@@ -27,3 +27,11 @@ kubectl apply -f service.yaml,deployment.yaml
 
 minikube service story-srv
 ```
+
+Add the `/error` route
+
+```bash
+docker build -t shawlu95/kube-data-demo:v3 .
+docker push shawlu95/kube-data-demo:v3
+kubectl apply -f deployment.yaml
+```

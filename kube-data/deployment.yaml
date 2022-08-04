@@ -14,4 +14,4 @@ spec:
     spec:
       containers:
         - name: story
-          image: shawlu95/kube-data-demo
+          image: shawlu95/kube-data-demo:v3

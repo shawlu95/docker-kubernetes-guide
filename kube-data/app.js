@@ -32,4 +32,9 @@ app.post('/story', (req, res) => {
   });
 });
 
+// crash and restart container, see volume should persist
+app.get('/error', (req, res) => {
+  process.exit(1);
+});
+
 app.listen(3000);
