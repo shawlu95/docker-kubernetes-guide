@@ -14,6 +14,12 @@ Architecture
 
 Build and start all apps using `docker-compose up -d --build`
 
+Service types:
+
+- cluster IP: internal, only reachable from inside
+- NodePort: still an IP, but reachable from outside
+- LoadBalancer: best option, gives public IP, distributes traffic across **nodes** (not just containers/pods)
+
 ```bash
 docker build -t shawlu95/kube-network-users .
 
@@ -21,4 +27,10 @@ docker push shawlu95/kube-network-users
 
 cd ..
 kubectl apply -f kubernetes/users-depl.yaml
+
+# expose service on port
+kubectl apply -f kubernetes/users-srv.yaml
+
+# not needed in prod
+minikube service users-srv
 ```
