@@ -115,6 +115,19 @@ kubectl apply -f deployment.yaml
 kubectl get pod
 ```
 
+Alternative method
+
+- store **ConfigMap** yaml: [environment.yaml](./environment.yaml)
+- references `configMapKeyRef` from [deployment.yaml](./deployment.yaml)
+
+```bash
+kubectl apply -f environment.yaml
+kubectl apply -f deployment.yaml
+
+# check deployment, should still interact via Postman
+kubetcl get pod
+```
+
 ## Take-away: Pod-Node independence & Application State
 
 - node claims persistent volume

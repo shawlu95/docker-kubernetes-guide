@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: story-depl
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: story
@@ -17,7 +17,10 @@ spec:
           image: shawlu95/kube-data-demo:v4
           env:
             - name: STORY_FOLDER
-              value: 'story'
+              valueFrom:
+                configMapKeyRef:
+                  name: data-store-env # config map metadata name
+                  key: folder # value returns "storage"
           volumeMounts:
             - mountPath: /app/story
               name: story-volume
