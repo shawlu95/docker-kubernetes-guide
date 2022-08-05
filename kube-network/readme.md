@@ -87,3 +87,19 @@ kubectl get services
 
 kubectl apply -f users-depl.yaml
 ```
+
+- alternatively, use Kubernetes-generated environment variable
+- e.g. for `auth-srv` service, refer to its address as `process.env.AUTH_SRV_SERVICE_HOST`
+
+```bash
+cd users-api
+
+docker build -t shawlu95/kube-network-users .
+
+docker push shawlu95/kube-network-users
+
+cd ../kubernetes
+
+kubectl delete -f users-depl.yaml
+kubectl apply -f users-depl.yaml
+```
