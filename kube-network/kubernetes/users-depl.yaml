@@ -17,6 +17,4 @@ spec:
           image: shawlu95/kube-network-users:latest
           env:
             - name: AUTH_URL
-              value: localhost
-        - name: auth
-          image: shawlu95/kube-network-auth:latest
+              value: '10.109.186.22'

@@ -67,3 +67,23 @@ kubectl logs $pod_name
 # Defaulted container "users" out of: users, auth
 # dummy foo@gmail.com
 ```
+
+Alternatively, deploy Auth in a separate Pod
+
+- create [auth-depl](./kubernetes/auth-depl.yaml) and only keep auth container
+- delete auth container from [users-depl](./kubernetes/users-depl.yaml)
+- create [auth-srv](./kubernetes/auth-srv.yaml) that exposes port 80, and uses **ClusterIP** (non-public facing)
+- users container refers to auth API by Cluster-IP, instead of "localhost"
+  - each service has its IP address which do not change
+  - need to find out manually
+
+```bash
+cd kubernetes
+
+kubectl apply -f auth-depl.yaml,auth-srv.yaml
+
+# lookup the "CLUSTER-IP" and save it as env variable AUTH_ADDRESS
+kubectl get services
+
+kubectl apply -f users-depl.yaml
+```
