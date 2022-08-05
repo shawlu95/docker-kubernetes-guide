@@ -10,6 +10,7 @@ spec:
     - ReadWriteOnce # by a single node (multiple pods, but same node, good for local)
     # - ReadOnlyMany # can be claimed by multiple nodes (not available by hostPath which has one node only)
     # - ReadWriteMany # not available by hostPath which has one node only
+  storageClassName: standard
   hostPath:
     path: /data
     type: DirectoryOrCreate

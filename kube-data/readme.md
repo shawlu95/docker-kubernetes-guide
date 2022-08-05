@@ -87,6 +87,7 @@ kubectl apply -f deployment.yaml
 ```bash
 kubectl apply -f host-pv.yaml
 kubectl apply -f host-pvc.yaml
+kubectl apply -f service.yaml
 kubectl apply -f deployment.yaml
 
 kubectl get pv
@@ -126,6 +127,8 @@ kubectl apply -f deployment.yaml
 
 # check deployment, should still interact via Postman
 kubetcl get pod
+
+kubectl delete -f deployment.yaml -f service.yaml -f environment.yaml -f host-pv.yaml -f host-pvc.yaml
 ```
 
 ## Take-away: Pod-Node independence & Application State
