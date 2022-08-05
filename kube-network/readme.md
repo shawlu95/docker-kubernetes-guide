@@ -136,6 +136,41 @@ kubectl get service
 minikube service tasks-srv
 ```
 
+## Setup React App
+
+Without managing the front-end in K8s cluster.
+
+```bash
+cd frontend
+
+docker build -t shawlu95/kube-network-react .
+
+# no need
+# docker push shawlu95/kube-network-react
+
+docker run -p 3000:80 --rm -d shawlu95/kube-network-react
+```
+
+Cross-origin resource sharing (CORS)
+
+- postman can access API as please
+- browser app needs to be CORS-allowed
+  - add appropriate headers in [task-app](./tasks-api/tasks-app.js)
+
+```bash
+cd tasks-api
+
+docker build -t shawlu95/kube-network-tasks .
+
+docker push shawlu95/kube-network-tasks
+
+cd ../kubernetes
+kubectl delete -f tasks-depl.yaml
+kubectl apply -f tasks-depl.yaml
+```
+
+Nit: must create at least one task via Postman, for front-end to load. Otherwise would crash.
+
 ---
 
 ## Take-away
