@@ -195,6 +195,19 @@ minikube service react-srv
   }
 ```
 
+Can use domain name in reverse proxy
+
+- trailing / needed in `/api/`
+- trailing / needed in `http://task-srv.default/`
+- tasks-api exposes 8000 port
+- no explicit refenrence of IP anywhere in source code!
+
+```bash
+  location /api/ {
+    proxy_pass http://task-srv.default:8000/;
+  }
+```
+
 Deploy
 
 ```bash
