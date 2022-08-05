@@ -49,3 +49,10 @@ Reapply the yaml
 ```bash
 kubectl apply -f deployment.yaml
 ```
+
+### Pods Share Volume
+
+- set `hostPath` instead of `emptyDir`
+- instead of passing empty dir object, pass in a nested dict `{path: ..., type: ...}`
+- crash one pod, but can still access data immediately from another pod
+- **cons**: pods must be on **same node** to access the data
