@@ -35,3 +35,17 @@ docker build -t shawlu95/kube-data-demo:v3 .
 docker push shawlu95/kube-data-demo:v3
 kubectl apply -f deployment.yaml
 ```
+
+Add `volumeMounts` to deployment spec.
+
+Apply volume bind in [deployment.yaml](./deployment.yaml)
+
+Reapply the yaml
+
+- first get request would fail, but that's ok
+- call `/error` to crash container
+- call get `/story` again, should see data persist
+
+```bash
+kubectl apply -f deployment.yaml
+```

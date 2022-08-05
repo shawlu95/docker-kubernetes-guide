@@ -15,3 +15,9 @@ spec:
       containers:
         - name: story
           image: shawlu95/kube-data-demo:v3
+          volumeMounts:
+            - mountPath: /app/story
+              name: story-volume
+      volumes:
+        - name: story-volume
+          emptyDir: {}
