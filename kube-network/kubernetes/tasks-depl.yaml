@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tasks-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tasks
+  template:
+    metadata:
+      labels:
+        app: tasks
+    spec:
+      containers:
+        - name: tasks
+          image: shawlu95/kube-network-tasks:latest
+          env:
+            - name: AUTH_URL
+              value: 'auth-srv.default'
+            - name: TASKS_FOLDER
+              value: tasks

@@ -114,6 +114,28 @@ cd kubernetes
 kubectl apply -f users-depl.yaml
 ```
 
+## Setup Tasks API
+
+- add [tasks-depl](./kubernetes/tasks-depl.yaml)
+  - add `AUTH_URL` env variable
+  - add `TASK_FOLDER` env variable
+- add [tasks-srv](./kubernetes/tasks-srv.yaml)
+
+```bash
+cd tasks-api
+
+docker build -t shawlu95/kube-network-tasks .
+docker push shawlu95/kube-network-tasks
+
+cd ../kubernetes
+kubectl apply -f tasks-depl.yaml,tasks-srv.yaml
+
+kubectl get service
+
+# important: on local environment, need to expose it on a different port!
+minikube service tasks-srv
+```
+
 ---
 
 ## Take-away

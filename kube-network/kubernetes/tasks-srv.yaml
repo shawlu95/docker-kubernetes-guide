@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: tasks-srv
+spec:
+  selector:
+    app: tasks # which pod to apply
+  type: LoadBalancer # should be reachable from outside
+  ports:
+    - protocol: TCP
+      port: 8000 # container external
+      targetPort: 8000 # container internal

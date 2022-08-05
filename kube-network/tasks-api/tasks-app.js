@@ -17,7 +17,9 @@ const extractAndVerifyToken = async (headers) => {
   }
   const token = headers.authorization.split(' ')[1]; // expects Bearer TOKEN
 
-  const response = await axios.get('http://auth/verify-token/' + token);
+  const response = await axios.get(
+    `http://${process.env.AUTH_URL}/verify-token/` + token
+  );
   return response.data.uid;
 };
 
@@ -38,7 +40,9 @@ app.get('/tasks', async (req, res) => {
     });
   } catch (err) {
     console.log(err);
-    return res.status(401).json({ message: err.message || 'Failed to load tasks.' });
+    return res
+      .status(401)
+      .json({ message: err.message || 'Failed to load tasks.' });
   }
 });
 
