@@ -171,6 +171,18 @@ kubectl apply -f tasks-depl.yaml
 
 Nit: must create at least one task via Postman, for front-end to load. Otherwise would crash.
 
+Manage front-end in Kubernetes cluster
+
+```bash
+docker push shawlu95/kube-network-react
+
+cd ../kubernetes
+
+kubectl apply -f react-depl.yaml,react-srv.yaml
+
+minikube service react-srv
+```
+
 ---
 
 ## Take-away
