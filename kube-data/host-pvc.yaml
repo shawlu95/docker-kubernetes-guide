@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: host-pvc
+spec:
+  # can claim by resource (dynamic provisioning)
+  # in this course, stick to static
+  volumeName: host-pv
+  accessModes:
+    # must be allowed by persistent volume
+    - ReadWriteOnce
+  storageClassName: standard
+  resources:
+    requests:
+      storage: 1Gi # can claim maximum 1Gi, but can be less

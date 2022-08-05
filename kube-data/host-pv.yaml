@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: host-pv
+spec:
+  capacity:
+    storage: 1Gi
+  volumeMode: Filesystem
+  accessModes: # define how to claim a volume for a given pod
+    - ReadWriteOnce # by a single node (multiple pods, but same node, good for local)
+    # - ReadOnlyMany # can be claimed by multiple nodes (not available by hostPath which has one node only)
+    # - ReadWriteMany # not available by hostPath which has one node only
+  hostPath:
+    path: /data
+    type: DirectoryOrCreate
