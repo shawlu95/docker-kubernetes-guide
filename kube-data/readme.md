@@ -100,6 +100,21 @@ kubectl get pvc
 kubectl get deployments
 ```
 
+### Env Variable Good Practice
+
+- specify volume data path as env variable
+- no need to change source code and push image anymore!
+
+```bash
+docker build -t shawlu95/kube-data-demo:v4 .
+
+docker push shawlu95/kube-data-demo:v4
+
+kubectl apply -f deployment.yaml
+
+kubectl get pod
+```
+
 ## Take-away: Pod-Node independence & Application State
 
 - node claims persistent volume

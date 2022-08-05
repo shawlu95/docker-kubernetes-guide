@@ -14,7 +14,10 @@ spec:
     spec:
       containers:
         - name: story
-          image: shawlu95/kube-data-demo:v3
+          image: shawlu95/kube-data-demo:v4
+          env:
+            - name: STORY_FOLDER
+              value: 'story'
           volumeMounts:
             - mountPath: /app/story
               name: story-volume

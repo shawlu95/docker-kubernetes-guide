@@ -11,10 +11,15 @@ The projects are ordered by the progression of the course, from easy to advanced
 5. [assignment-1](./assignment-1/: dockerize a node app with exposed port, and python app with interactive cmd interface
 6. [data-volumes](./data-volumes/): anonymous volume, named volume, bind mount
 7. [networks](./networks/): create network and place containers into the same network. Expose port to outside if needed
-8. [multi-container-app](./multi-container-app/): front-end, back-end, db container wired together
+8. [multi-container-app](./multi-container-app/): front-end, back-end, db container wired together; deploy uisng **AWS ECS**
 9. [utility-containers](./utility-containers): use docker to initialize things without global install
 10. [laravel-php](./laravel-php): a non-trivial tech stack made easy by docker
 11. [deployment](./deployment/): deploy a node app on EC2 and make it publicly viewable, push image to docker hub
+
+Kubernetes
+
+12. [kube](./kube/): intro to K8s object, Pod, Node, Deploymenmt, Service
+13. [kube-data](./kube-data/): using hostPath, persistent volume (claim)
 
 ### References
 
