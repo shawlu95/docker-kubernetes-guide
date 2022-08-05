@@ -17,4 +17,5 @@ spec:
           image: shawlu95/kube-network-users:latest
           env:
             - name: AUTH_URL
-              value: '10.109.186.22'
+              # value: '10.109.186.22'# cluster IP
+              value: 'auth-srv.default' # can simply refer to service name

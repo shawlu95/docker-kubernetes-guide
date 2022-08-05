@@ -103,3 +103,24 @@ cd ../kubernetes
 kubectl delete -f users-depl.yaml
 kubectl apply -f users-depl.yaml
 ```
+
+- alternatively, refer to service's name and namespace
+- e.g. `auth-srv.default`
+
+```bash
+kubectl get namespaces
+
+cd kubernetes
+kubectl apply -f users-depl.yaml
+```
+
+---
+
+## Take-away
+
+- avoid placing multiple containers in same pod unless tighly coupled (poor design)
+- each pod needs a service object
+- three options to reference a pod
+  - by hard-coding cluster-ip
+  - use auto-generated environment variable
+  - use auto-generated domain name (most common)
