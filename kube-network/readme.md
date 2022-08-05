@@ -185,6 +185,34 @@ minikube service react-srv
 
 ---
 
+## Reverse Proxy in React App
+
+- if a requests target `/api`, route to task service IP
+
+```bash
+  location /api {
+    proxy_pass http://127.0.0.1:53631;
+  }
+```
+
+Deploy
+
+```bash
+cd frontend
+
+docker build -t shawlu95/kube-network-tasks .
+
+docker push shawlu95/kube-network-tasks
+
+cd ../kubernetes
+
+kubectl delete -f react-depl.yaml,react-srv.yaml
+
+kubectl apply -f react-depl.yaml,react-srv.yaml
+```
+
+---
+
 ## Take-away
 
 - avoid placing multiple containers in same pod unless tighly coupled (poor design)

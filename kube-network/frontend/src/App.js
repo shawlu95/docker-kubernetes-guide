@@ -9,7 +9,7 @@ function App() {
 
   const fetchTasks = useCallback(function () {
     // this is not container internal address, it is run in browser
-    fetch('http://127.0.0.1:53631/tasks', {
+    fetch('/api/tasks', {
       headers: {
         Authorization: 'Bearer abc',
       },
@@ -31,7 +31,7 @@ function App() {
 
   function addTaskHandler(task) {
     // this is not container internal address, it is run in browser
-    fetch('http://127.0.0.1:53631/tasks', {
+    fetch('/api/tasks', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
