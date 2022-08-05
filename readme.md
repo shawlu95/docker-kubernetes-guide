@@ -20,6 +20,7 @@ Kubernetes
 
 12. [kube](./kube/): intro to K8s object, Pod, Node, Deploymenmt, Service
 13. [kube-data](./kube-data/): using hostPath, persistent volume (claim)
+14. [kube-network](./kube-network/): create 3 node apps, place them in 2 pods; try intra & inter-pod communication
 
 ### References
 

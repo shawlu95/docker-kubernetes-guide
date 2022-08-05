@@ -13,3 +13,12 @@ Architecture
 - auth API is not exposed any port to the public, only accessible from internal
 
 Build and start all apps using `docker-compose up -d --build`
+
+```bash
+docker build -t shawlu95/kube-network-users .
+
+docker push shawlu95/kube-network-users
+
+cd ..
+kubectl apply -f kubernetes/users-depl.yaml
+```
