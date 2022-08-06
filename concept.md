@@ -90,3 +90,10 @@ Deployment type:
 - ClusterIP: only reachable from inside cluster
 - NodePort: exposed to the outside by IP
 - LoadBalancer: generate unique address for this service and evenly distribute traffic
+
+## AWS EKS (Kubernetes) vs ECS (Container)
+
+- EKS is for Kubernetes deployment, can just apply existing k8s config
+  - stay in the K8s world of API (config, resource, object), no AWS specific things
+- ECS general service for container, doesn't know k8s config file
+  - has a a bunch of AWS-specific syntax and philosophy and concept (not good)
