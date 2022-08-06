@@ -27,7 +27,7 @@ spec:
     spec:
       containers:
         - name: users-api
-          image: academind/kub-dep-users:latest
+          image: shawlu95/story-prod-users:latest
           env:
             - name: MONGO_URL
               value: 'nodejs.rr8cx.mongodb.net'
@@ -35,9 +35,9 @@ spec:
               value: 'admin'
             - name: MONGODB_PASSWORD
               valueFrom:
-              secretKeyRef:
-                name: mongo-pass
-                key: mongo_pass
+                secretKeyRef:
+                  name: mongo-pass
+                  key: mongo_pass
             - name: MONGODB_NAME
               value: 'story-dev'
             - name: AUTH_API_ADDRESSS
