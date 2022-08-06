@@ -2,6 +2,9 @@ FROM node:14-alpine
 
 WORKDIR /app
 
+# create data dir
+RUN mkdir users
+
 COPY package.json .
 
 RUN npm install

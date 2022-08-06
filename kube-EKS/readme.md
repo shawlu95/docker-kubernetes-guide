@@ -63,3 +63,21 @@ kubectl apply -f auth.yaml -f users.yaml
 # should see load balancer
 kubectl get service
 ```
+
+## CSI: Container Storage Interface
+
+- create security group `eks-efs`
+  - VPC must be same as the EKS cluster
+  - inbound rule allows NFS traffic from cluster VPC CIDR block
+- create a EFS, selecting the eks-vpc
+  - customize, on network access page, select `eks-efs` security group for both zones
+- see persistent volume [example](https://github.com/kubernetes-sigs/aws-efs-csi-driver/blob/master/examples/kubernetes/static_provisioning/specs/pv.yaml)
+  - no longer need to create storage class
+- see persistent volume claim [example](https://github.com/kubernetes-sigs/aws-efs-csi-driver/blob/master/examples/kubernetes/static_provisioning/specs/claim.yaml)
+- create persistent volume, persistent volume claim in [users.yaml](./kubernetes/users.yaml)
+- sanity check, reduce replicas to 0, apply change, get `/logs`. Increase replicas, apply, try again.
+
+```bash
+# install CSI driver
+kubectl apply -k "github.com/kubernetes-sigs/aws-efs-csi-driver/deploy/kubernetes/overlays/stable/?ref=release-1.3"
+```
