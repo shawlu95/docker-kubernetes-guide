@@ -68,7 +68,7 @@ spec:
                   key: mongo_pass
             - name: MONGODB_NAME
               value: 'story-dev'
-            - name: AUTH_API_ADDRESSS
+            - name: AUTH_API_ADDRESS
               value: 'auth-service.default:3000'
           volumeMounts:
             - name: efs-vol

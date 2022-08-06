@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: tasks-service
+spec:
+  selector:
+    app: task
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tasks-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: task
+  template:
+    metadata:
+      labels:
+        app: task
+    spec:
+      containers:
+        - name: tasks-api
+          image: shawlu95/story-prod-tasks:latest
+          env:
+            - name: MONGO_URL
+              value: 'nodejs.rr8cx.mongodb.net'
+            - name: MONGODB_USERNAME
+              value: 'admin'
+            - name: MONGODB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-pass
+                  key: mongo_pass
+            - name: MONGODB_NAME
+              value: 'story-dev'
+            - name: AUTH_API_ADDRESS
+              value: 'auth-service.default:3000'

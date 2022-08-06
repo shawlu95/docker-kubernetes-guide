@@ -81,3 +81,31 @@ kubectl get service
 # install CSI driver
 kubectl apply -k "github.com/kubernetes-sigs/aws-efs-csi-driver/deploy/kubernetes/overlays/stable/?ref=release-1.3"
 ```
+
+## Add the Task API
+
+- create the [tasks.yaml](./kubernetes//tasks.yaml)
+- rebuild all three images (source code changed)
+- stop existing deployment
+- apply all three yamls
+
+```bash
+cd tasks-api
+
+docker build \
+  --platform=linux/amd64 \
+  -t shawlu95/story-prod-tasks .
+
+docker push shawlu95/story-prod-tasks
+
+cd ../kubernetes
+
+kubectl delete deployment users-deployment
+kubectl delete deployment auth-deployment
+kubectl delete deployment tasks-deployment
+
+kubectl apply -f auth.yaml -f tasks.yaml -f users.yaml
+
+# should see two load balancers!
+kubectl get service
+```

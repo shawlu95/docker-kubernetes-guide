@@ -1,4 +1,4 @@
-version: "3"
+version: '3'
 services:
   auth:
     build: ./auth-api
@@ -12,4 +12,11 @@ services:
       - '8080:3000'
     environment:
       MONGODB_CONNECTION_URI: 'mongodb+srv://maximilian:wk4nFupsbntPbB3l@cluster0.ntrwp.mongodb.net/users?retryWrites=true&w=majority'
-      AUTH_API_ADDRESSS: 'auth:3000'
+      AUTH_API_ADDRESS: 'auth:3000'
+  tasks:
+    build: ./tasks-api
+    ports:
+      - '3000:3000'
+    environment:
+      MONGODB_CONNECTION_URI: 'mongodb+srv://maximilian:wk4nFupsbntPbB3l@cluster0.ntrwp.mongodb.net/users?retryWrites=true&w=majority'
+      AUTH_API_ADDRESS: 'auth:3000'
