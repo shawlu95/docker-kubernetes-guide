@@ -46,13 +46,20 @@ Create a new node group
 
 ```bash
 cd users-api
-docker build -t shawlu95/story-prod-users .
+docker build \
+  --platform=linux/amd64 \
+  -t shawlu95/story-prod-users .
 docker push shawlu95/story-prod-users
 
 cd auth-api
-docker build -t shawlu95/story-prod-auth .
+docker build \
+  --platform=linux/amd64 \
+  -t shawlu95/story-prod-auth .
 docker push shawlu95/story-prod-auth
 
 cd kubernetes
 kubectl apply -f auth.yaml -f users.yaml
+
+# should see load balancer
+kubectl get service
 ```
