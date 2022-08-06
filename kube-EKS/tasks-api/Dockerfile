@@ -8,6 +8,6 @@ RUN npm install
 
 COPY . .
 
-EXPOSE 3000
+EXPOSE 8000
 
-CMD [ "node", "users-app.js" ]
+CMD [ "node", "tasks-app.js" ]
